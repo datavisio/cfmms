@@ -1,7 +1,7 @@
 use std::{error::Error, str::FromStr, sync::Arc};
 
 use ethers::{
-    providers::{Http, Provider},
+    providers::{Ws, Provider},
     types::H160,
 };
 
@@ -13,9 +13,9 @@ use cfmms::{
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     //Add rpc endpoint here:
-    let rpc_endpoint = std::env::var("ETHEREUM_MAINNET_ENDPOINT")
-        .expect("Could not get ETHEREUM_MAINNET_ENDPOINT");
-    let provider = Arc::new(Provider::<Http>::try_from(rpc_endpoint).unwrap());
+    let rpc_endpoint = "ws://localhost:8545";
+    let ws = Ws::connect(rpc_endpoint).await.unwrap();
+    let provider = Arc::new(Provider::new(ws));
 
     let dexes = vec![
         //UniswapV2
@@ -43,6 +43,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     //Sync pairs
     sync::sync_pairs(dexes, provider, None).await?;
-
+    println!("good job!");
     Ok(())
 }

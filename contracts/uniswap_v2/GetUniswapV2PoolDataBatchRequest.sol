@@ -52,58 +52,58 @@ contract GetUniswapV2PoolDataBatchRequest {
             if (codeSizeIsZero(poolData.tokenB)) continue;
 
             //Get tokenA decimals
-            (
-                bool tokenADecimalsSuccess,
-                bytes memory tokenADecimalsData
-            ) = poolData.tokenA.call(abi.encodeWithSignature("decimals()"));
-
-            if (tokenADecimalsSuccess) {
-                uint256 tokenADecimals;
-
-                if (tokenADecimalsData.length == 32) {
-                    (tokenADecimals) = abi.decode(
-                        tokenADecimalsData,
-                        (uint256)
-                    );
-
-                    if (tokenADecimals == 0 || tokenADecimals > 255) {
-                        continue;
-                    } else {
-                        poolData.tokenADecimals = uint8(tokenADecimals);
-                    }
-                } else {
-                    continue;
-                }
-            } else {
-                continue;
-            }
-            //Get tokenB decimals
-
-            (
-                bool tokenBDecimalsSuccess,
-                bytes memory tokenBDecimalsData
-            ) = poolData.tokenB.call(abi.encodeWithSignature("decimals()"));
-
-            if (tokenBDecimalsSuccess) {
-                uint256 tokenBDecimals;
-
-                if (tokenBDecimalsData.length == 32) {
-                    (tokenBDecimals) = abi.decode(
-                        tokenBDecimalsData,
-                        (uint256)
-                    );
-
-                    if (tokenBDecimals == 0 || tokenBDecimals > 255) {
-                        continue;
-                    } else {
-                        poolData.tokenBDecimals = uint8(tokenBDecimals);
-                    }
-                } else {
-                    continue;
-                }
-            } else {
-                continue;
-            }
+//            (
+//                bool tokenADecimalsSuccess,
+//                bytes memory tokenADecimalsData
+//            ) = poolData.tokenA.call(abi.encodeWithSignature("decimals()"));
+//
+//            if (tokenADecimalsSuccess) {
+//                uint256 tokenADecimals;
+//
+//                if (tokenADecimalsData.length == 32) {
+//                    (tokenADecimals) = abi.decode(
+//                        tokenADecimalsData,
+//                        (uint256)
+//                    );
+//
+//                    if (tokenADecimals == 0 || tokenADecimals > 255) {
+//                        continue;
+//                    } else {
+//                        poolData.tokenADecimals = uint8(tokenADecimals);
+//                    }
+//                } else {
+//                    continue;
+//                }
+//            } else {
+//                continue;
+//            }
+//            //Get tokenB decimals
+//
+//            (
+//                bool tokenBDecimalsSuccess,
+//                bytes memory tokenBDecimalsData
+//            ) = poolData.tokenB.call(abi.encodeWithSignature("decimals()"));
+//
+//            if (tokenBDecimalsSuccess) {
+//                uint256 tokenBDecimals;
+//
+//                if (tokenBDecimalsData.length == 32) {
+//                    (tokenBDecimals) = abi.decode(
+//                        tokenBDecimalsData,
+//                        (uint256)
+//                    );
+//
+//                    if (tokenBDecimals == 0 || tokenBDecimals > 255) {
+//                        continue;
+//                    } else {
+//                        poolData.tokenBDecimals = uint8(tokenBDecimals);
+//                    }
+//                } else {
+//                    continue;
+//                }
+//            } else {
+//                continue;
+//            }
 
             // Get reserves
             (poolData.reserve0, poolData.reserve1, ) = IUniswapV2Pair(

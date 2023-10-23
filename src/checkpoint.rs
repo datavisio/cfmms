@@ -352,7 +352,6 @@ pub async fn generate_checkpoint_with_throttle<M: 'static + Middleware>(
         .map_err(CFMMError::MiddlewareError)?;
 
     println!("total pools :{}", aggregated_pools.len());
-
     construct_checkpoint(
         dexes,
         &aggregated_pools,
